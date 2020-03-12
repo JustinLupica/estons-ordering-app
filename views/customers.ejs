@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/main.css" type="text/css"/>
+    <title>Customer Lookup</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css"/></noscript>
+  </head>
+  <body class="is-preload">
+    <!-- Header -->
+    <header id="header">
+      <a href="/" class="title">Eston's Bakery</a>
+      <nav>
+        <ul>
+          <li><a href="/NewOrder">New Order</a></li>
+          <li><a href="/customerlookup" class="active">Customers</a></li>
+          <li><a href="/orders">Orders</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Main -->
+      <section id="main" class="wrapper">
+        <div class="inner">
+          <h1 class="major">Customer Lookup</h1>
+          <p>
+            This page will be used to lookup a customer's info, update it as
+            nessesary, and add new customers to the customer database.
+          </p>
+        </div>
+      </section>
+      <form action="/data" method="POST">
+        <div class="field half">
+          <label for="customersName">New - Customer's Name</label>
+          <input type="text" name="customersName" id="customersName" />
+          <label for="phoneNumber">Phone Number</label>
+          <input type="text" name="phoneNumber" id="phoneNumber">
+        </div>
+        <button>Submit</button>
+      </form>
+      <hr>
+
+      <section class="formInputs">
+        <form method="POST" action="/data">
+          
+        </form>
+      </section>
+      <div class="field half">
+        <label for="search-input">Search Customers Below</label>
+        <input type="text" name="search-input" id="search-input" onkeydown="filterCustomer()" />
+        <br>
+      <table class="customerTable">
+        <tr></tr>
+          <th>Name</th>
+          <th>Phone Number</th>
+        </tr>
+        <tbody id="table">
+            <%if (resultArray.length > 0){ %>
+                <% resultArray.forEach(function(row){ %>
+            <tr>
+                <td><%=row.name%></td>
+                <td><%=row.phoneNumber%></td>
+            </tr> 
+            <%})}else{ %>
+                <tr>
+                    <td colspan="2">No Records Found</td>
+                </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt">
+      <div class="inner">
+        <ul class="menu">
+          <li>&copy; Untitled. All rights reserved.</li>
+          <li>Design: Justin Lupica</li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="index.js"></script>
+    <script src="app.js"></script>
+    <script src="server.js"></script>
+
+    <script>
+      function filterCustomer() {
+        console.log("function is being called")
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search-input");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("table");
+        tr = table.getElementsByTagName("tr");
+
+        //Loop through table rows and hide unmatched results
+        for(i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if(txtValue.toUpperCase().indexOf(filter) > -1){
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+    </script>
+    <script src="../scripts.js"></script>
+
+  </body>
+</html>

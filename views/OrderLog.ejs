@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/main.css" type="text/css"/>
+    <title>Order Log</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css"/></noscript>
+  </head>
+  <body class="is-preload">
+    <!-- Header -->
+    <header id="header">
+      <a href="/" class="title">Eston's Bakery</a>
+      <nav>
+        <ul>
+          <li><a href="/NewOrder">New Order</a></li>
+          <li><a href="/customerlookup">Customers</a></li>
+          <li><a href="/orders" class="active">Orders</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Main -->
+      <section id="main" class="wrapper">
+        <div class="inner">
+          <h1 class="major">Order Log</h1>
+          <p>
+                This page will be used to view orders logged within the SQL Database. You'll be able to filter, sort, and get a summary of upcoming orders.
+                You should also be able to search for an order by ID, or customer name, to bring up the summary view of the result.
+          </p>
+        </div>
+    </section>
+
+      <section class="formInputs">
+        <form method="POST" action="/data">
+          <div class="fields">
+            
+          </div>
+        </form>
+      </section>
+      <div class="field half">
+        <label for="search-orders">Search Orders Below</label>
+        <input type="text" name="search-order" id="search-orders" onkeydown="filterOrders()" />
+        </div>
+      <table id="orderTable" class="orderLog">
+        <tr></tr>
+          <th onclick="sort()">Name</th>
+          <th onclick="sort()">Pickup Date</th>
+          <th onclick="sort()">Size</th>
+          <th onclick="sort()">Flavor</th>
+          <th onclick="sort()">Special Instructions</th>
+        </tr>
+        <tbody id="orderTable">
+            <%if (orderArray.length > 0){ %>
+                <% orderArray.forEach(function(row){ %>
+            <tr>
+                <td><%=row.customerName%></td>
+                <td><%=row.pickupDate%></td>
+                <td><%=row.size%></td>
+                <td><%=row.flavor%></td>
+                <td><%=row.specialInstructions%></td>
+            </tr> 
+            <%})}else{ %>
+                <tr>
+                    <td colspan="2">No Records Found</td>
+                </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt">
+      <div class="inner">
+        <ul class="menu">
+          <li>&copy; Untitled. All rights reserved.</li>
+          <li>Design: Justin Lupica</li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="index.js"></script>
+    <script src="app.js"></script>
+    <script src="server.js"></script>
+    <script>
+        function filterOrders() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("search-orders");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("orderTable");
+          tr = table.getElementsByTagName("tr");
+  
+          //Loop through table rows and hide unmatched results
+          for(i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if(txtValue.toUpperCase().indexOf(filter) > -1){
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+
+        function sort() {
+          console.log("Column was clicked!")
+        }
+
+      </script>
+      <script src="../scripts.js"></script>
+
+  </body>
+</html>

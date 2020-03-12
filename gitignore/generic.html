@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Customer Lookup</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css"/></noscript>
+  </head>
+  <body class="is-preload">
+    <!-- Header -->
+    <header id="header">
+      <a href="index.html" class="title">Eston's Bakery</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="generic.html" class="active">Customers</a></li>
+          <li><a href="elements.html">Elements</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Main -->
+      <section id="main" class="wrapper">
+        <div class="inner">
+          <h1 class="major">Customer Lookup</h1>
+          <p>
+            This page will be used to lookup a customer's info, update it as
+            nessesary, and add new customers to the customer database.
+          </p>
+        </div>
+      </section>
+
+      <section class="formInputs">
+        <form method="POST" action="">
+          <div class="fields">
+            <div class="field half">
+              <label for="customersName">ID Lookup</label>
+              <input type="text" name="customersName" id="customersName" />
+            </div>
+          </div>
+          <div class="buttons">
+            <ul class="actions">
+              <li><a href="" class="button submit">Add New Customer</a></li>
+            </ul>
+            <button type="button" onchange="lookup('customersName')">
+              Search
+            </button>
+            <ul class="actions">
+              <li>
+                <a
+                  href="#"
+                  class="button submit"
+                  onchange="lookup('customersName')"
+                  >Search DB</a
+                >
+              </li>
+            </ul>
+          </div>
+        </form>
+      </section>
+      <table class="customerTable">
+        <tr></tr>
+          <th>Name</th>
+          <th>Phone Number</th>
+        </tr>
+        <tbody id="table">
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt">
+      <div class="inner">
+        <ul class="menu">
+          <li>&copy; Untitled. All rights reserved.</li>
+          <li>Design: Justin Lupica</li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="index.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

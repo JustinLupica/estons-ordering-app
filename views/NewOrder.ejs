@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="stylesheets/main.css" type="text/css"/>
+    <title>New Order</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css"/></noscript>
+  </head>
+<body>
+    <!-- Header -->
+    <header id="header">
+      <a href="/" class="title">Eston's Bakery</a>
+      <nav>
+        <ul>
+          <li><a href="/NewOrder" class="active">New Order</a></li>
+          <li><a href="/customerlookup">Customers</a></li>
+          <li><a href="/orders">Orders</a></li>
+        </ul>
+      </nav>
+    </header>
+<section id="one" class="wrapper style1 fade-up">
+    <div class="inner">
+      <h2>New Order</h2>
+      <p>
+        Take new order with the form below and automatically submit it to the SQL Database for safe-keeping.
+        Once the order is in the Database, we will be able to run querys on that data to retrieve the info we want.
+      </p>
+      <div class="split style1">
+        <section class="formInputs">
+          <form method="POST" action="/order_create">
+            <div class="fields">
+              <div class="field half">
+                <label for="name">Customer's Name</label>
+                <input type="text" name="customersName" id="customersName" />
+              </div>
+              <div class="field half">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" />
+              </div>
+              <div class="field half">
+                  <label for="phoneNumber">Phone Number</label>
+                  <input type="text" name="phoneNumber" id="phoneNumber">
+      </div>
+      </div>
+                <div class="dropdown-row2">
+                    <div class="field half">
+                        <label for="pickupOrDelivery">Fulfillment</label>
+                        <select class="fulfillment" name="pickupOrDelivery" id="pickupOrDelivery"
+                        onchange="fulfillment(this.id, 'pickupDate', 'deliveryDate')">
+                            <option value=""disabled selected>Pickup/Delivery</option>
+                            <option value="pickup">Pickup</option>
+                            <option value="delivery">Delivery</option>
+                        </select>
+                    </div>
+                    <div class="field half">
+                        <label id="pickupLabel" for="pickupDate">Pickup Date</label>
+                        <input type="date" name="pickupDate" id="pickupDate">
+                    </div>
+                    <div class="field half">
+                        <label id="deliveryLabel" for="deliveryDate">Delivery Date</label>
+                        <input type="date" name="deliveryDate" id="deliveryDate">
+                    </div>
+      </div>
+      </div>
+              <div class="dropdown-row3">
+                  <div class="employee">
+                      <label for="employee">Employee</label>
+                      <select name="employee" id="employee">
+                          <option value="" disabled selected>Select Employee</option>
+                          <option value="Justin Lupica">Justin Lupica</option>
+                          <option value="Joan Fields">Joan Fields</option>
+                          <option value="Victoria Beabout">Victoria Beabout</option>
+                      </select>
+                  </div>
+                  <div class="productType">
+                      <label for="productType">Product Type</label>
+                      <select name="productType" id="productType" onchange="populate(this.id, 'productSize', 'productFlavor'); visibility()">
+                          <option value="" disabled selected>Type</option>
+                          <option value="cakes">Cakes</option>
+                          <option value="cupcakes">Cupcakes</option>
+                          <option value="cheesecakes">Cheesecakes</option>
+                      </select>
+                  </div>
+                  <div class="productSize">
+                    <label for="productSize">Product Size</label>
+                      <select name="productSize" id="productSize">
+                          <option value="" disabled selected>Size</option>
+                      </select>
+                  </div>
+                  <div class="productFlavor">
+                    <label for="productFlavor">Product Flavor</label>
+                      <select name="productFlavor" id="productFlavor">
+                          <option value=""disabled selected>Flavor</option>
+                      </select>
+                    </div>
+              </div>
+            <div class="dropdown-row4">
+              <div class="icing">
+                  <label id="icingLabel" for="icing">Icing Color</label>
+                <select name="icing" id="icing">
+                    <option value="white">White</option>
+                    <option value="chocolate">Chocolate</option>
+                </select>
+                </div>
+                <div class="roseColor1">
+                    <label id="roseLabel1" for="roseColor1">Rose Color</label>
+                    <select name="roseColor1" id="roseColor1">
+                        <option value="white">White</option>
+                        <option value="chocolate">Chocolate</option>
+                        <option value="red">Red</option>
+                        <option value="blue">Blue</option>
+                        <option value="purple">Purple</option>
+                    </select>
+                </div>
+                <div class="roseColor2">
+                    <label id="roseLabel2" for="roseColor2">Rose Color</label>
+                    <select name="roseColor2" id="roseColor2">
+                        <option value="white">White</option>
+                        <option value="chocolate">Chocolate</option>
+                        <option value="red">Red</option>
+                        <option value="blue">Blue</option>
+                        <option value="purple">Purple</option>
+                    </select>
+                </div>
+            </div>
+                <div class="field">
+                    <label for="messageCard">Message Card</label>
+                    <input type="text" name="messageCard" id="messageCard">
+                </div>
+
+              <div class="field">
+                <label for="specialInstructions">Special Instructions</label>
+                <textarea name="specialInstructions" id="specialInstructions" rows="3"></textarea>
+              </div>
+              <div class="field">
+                    <label for="receiptNumber">Receipt Number</label>
+                    <input type="text" name="receiptNumber" id="receiptNumber">
+              </div>
+            </div>
+            <ul class="actions">
+              <li><a href="/order_create" class="button submit">Send</a></li>
+            </ul>
+            <ul class="actions">
+                <li><a href="/customerlookup" class="button submit">Customer Lookup</a></li>
+              </ul>
+          </form>
+        </section>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+function populate(s1, s2, s3) {
+  var s1 = document.getElementById(s1);
+  var s2 = document.getElementById(s2);
+  var s3 = document.getElementById(s3);
+  s2.innerHTML = "";
+  s3.innerHTML = "";
+  if (s1.value == "cakes") {
+    var optionArray = [
+      "|Select a Size",
+      "6 inch|6 inch",
+      "8 inch|8 inch",
+      "10 inch|10 inch",
+      "1/2 Sh|1/2 Sh"
+    ];
+    var flavorArray = [
+      "|Select a Flavor",
+      "CM|Chocolate Supreme",
+      "STR|Strawberries n Cream",
+      "LB|Lemon Berry",
+      "WCM|White Chocolate Silk",
+      "CRSP|Chocolate Raspberry",
+      "KL|Key Lime",
+      "AZ|Almond Zebra",
+      "RR|Raspberry Royale"
+    ];
+  } else if (s1.value == "cupcakes") {
+    var optionArray = [
+      "|Select a Size",
+      "single|Single",
+      "1/2 dozen|1/2 Dozen",
+      "dozen|Dozen"
+    ];
+    var flavorArray = [
+      "|Select a Flavor",
+      "TC|Triple Chocolate",
+      "STR|Strawberry",
+      "LK|Lemon Kiss",
+      "RV|Red Velvet",
+      "RF|Raspberry Forest",
+      "WC|White Chocolate",
+      "VBC|Vanilla Buttercream",
+      "CBC|Chocolate Buttercream"
+    ];
+  } else if (s1.value == "cheesecakes") {
+    var optionArray = [
+      "|Select a Size",
+      "single slice|Single Slice",
+      "whole cheesecake|Whole Cheesecake",
+      "sampler|Sampler"
+    ];
+    var flavorArray = [
+      "|Select a Flavor",
+      "original|Original",
+      "chocolate bliss|Chocolate Bliss",
+      "strawberry|Strawberry Chiffon",
+      "mixed berry|Mixed Berry",
+      "fresh apple|Fresh Apple",
+      "buckeye|Buckeye",
+      "key lime|Key Lime",
+      "cookies n dream|Cookies n Dream",
+      "chocolate raspberry|Chocolate Raspberry",
+      "mocha mud|Mocha Mud"
+    ];
+  }
+  for (var option in optionArray) {
+    var pair = optionArray[option].split("|");
+    var newOption = document.createElement("option");
+    newOption.value = pair[0];
+    newOption.innerHTML = pair[1];
+    s2.options.add(newOption);
+  }
+  for (var option in flavorArray) {
+    var flavorPair = flavorArray[option].split("|");
+    var newOption2 = document.createElement("option");
+    newOption2.value = flavorPair[0];
+    newOption2.innerHTML = flavorPair[1];
+    s3.options.add(newOption2);
+  }
+}
+</script>
+<script>
+  function visibility(typeselector, icing) {
+  var typeselector = document.getElementById("productType").value;
+  var icing = document.getElementById("icing");
+  var icingLabel = document.getElementById("icingLabel");
+  var rose1 = document.getElementById("roseColor1");
+  var rose1Label = document.getElementById("roseLabel1")
+  var rose2 = document.getElementById("roseColor2")
+  var rose2Label = document.getElementById("roseLabel2")
+  if (typeselector == "cupcakes" || typeselector == "cheesecakes") {
+    icing.style.visibility = "hidden";
+    rose1.style.visibility = "hidden";
+    rose1Label.style.visibility = "hidden";
+    rose2.style.visibility = "hidden";
+    rose2Label.style.visibility = "hidden";
+    icingLabel.style.visibility = "hidden";
+  } else {
+    icing.style.visibility = "visible";
+  }
+}
+
+function fulfillment(drpdwn1, pickupDate, deliveryDate) {
+  var drpdwn1 = document.getElementById("pickupOrDelivery").value;
+  var pickupDate = document.getElementById("pickupDate");
+  var deliveryDate = document.getElementById("deliveryDate");
+
+  if (drpdwn1 == "pickup") {
+    deliveryDate.style.visibility = "hidden";
+    pickupDate.style.visibility = "visible";
+    pickupLabel.style.visibility = "visible";
+    deliveryLabel.style.visibility = "hidden";
+  } else if (drpdwn1 == "delivery") {
+    pickupDate.style.visibility = "hidden";
+    deliveryDate.style.visibility = "visible";
+    pickupLabel.style.visibility = "hidden";
+    deliveryLabel.style.visibility = "visible";
+  }
+}
+
+</script>
+<script>
+    require('../renderer.js');
+</script>
+<script src="../scripts.js"></script>
+</body>
