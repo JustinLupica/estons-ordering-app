@@ -6,6 +6,7 @@
 -->
 <html>
   <head>
+    <script src="https://kit.fontawesome.com/698878cf66.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/stylesheets/main.css" type="text/css"/>
     <title>Customer Lookup</title>
     <meta charset="utf-8" />
@@ -42,9 +43,9 @@
       </section>
       <form action="/data" method="POST">
         <div class="field half">
-          <label for="customersName">New - Customer's Name</label>
+          <label class="addLabel" for="customersName">New - Customer's Name</label>
           <input type="text" name="customersName" id="customersName" />
-          <label for="phoneNumber">Phone Number</label>
+          <label class="addLabel" for="phoneNumber">Phone Number</label>
           <input type="text" name="phoneNumber" id="phoneNumber">
         </div>
         <button>Submit</button>
@@ -58,7 +59,10 @@
       </section>
       <div class="field half">
         <label for="search-input">Search Customers Below</label>
+        <div class="wrapper">
+        <i class="fab fa-searchengin"></i>
         <input type="text" name="search-input" id="search-input" onkeydown="filterCustomer()" />
+      </div>
         <br>
       <table class="customerTable">
         <tr></tr>
@@ -127,6 +131,17 @@
       }
     </script>
     <script src="../scripts.js"></script>
+    <script>
+      $("#table tr").click(function(){
+        $(this).addClass('selected').siblings().removeClass('selected');
+        var value=$(this).find('td:first').html();
+        alert(value);
+      })
+
+      $('.ok').on('click', function(e){
+        alert($("#table tr.selected td:first").html());
+      })
+    </script>
 
   </body>
 </html>

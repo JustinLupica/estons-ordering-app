@@ -2,7 +2,6 @@ const mysql = require("mysql");
 const express = require("express");
 const router = express.Router();
 const app = express();
-const ejse = require("ejs-electron");
 const bodyParser = require("body-parser");
 
 const customerRouter = require("./routes/customers");

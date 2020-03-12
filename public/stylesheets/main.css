@@ -3963,3 +3963,32 @@ input, select, textarea {
 		.inner {
 			width: 100%;
 		}
+
+		.fab {
+			position: absolute;
+			transform: translate(15px, 15px);
+			scale: 1.5;
+		}
+
+		#search-input {
+			padding-left: 2.5em;
+		}
+
+		#wrapper {
+			width: 85%;
+			margin: auto;
+		}
+
+		#table tr td {
+			margin: auto;
+		}
+
+		#customersName,
+		#phoneNumber {
+			width: 30%;
+		}
+
+		.addLabel {
+			width: 30%;
+			align-content: center;
+		}

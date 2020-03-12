@@ -72,7 +72,7 @@
                       <label for="employee">Employee</label>
                       <select name="employee" id="employee">
                           <option value="" disabled selected>Select Employee</option>
-                          <option value="Justin Lupica">Justin Lupica</option>
+                          <option value="Justin Lupica">Janeen Esterson</option>
                           <option value="Joan Fields">Joan Fields</option>
                           <option value="Victoria Beabout">Victoria Beabout</option>
                       </select>
@@ -185,7 +185,8 @@ function populate(s1, s2, s3) {
       "|Select a Size",
       "single|Single",
       "1/2 dozen|1/2 Dozen",
-      "dozen|Dozen"
+      "dozen|Dozen",
+      "mini-dozen|Mini Dozen"
     ];
     var flavorArray = [
       "|Select a Flavor",
@@ -203,6 +204,7 @@ function populate(s1, s2, s3) {
       "|Select a Size",
       "single slice|Single Slice",
       "whole cheesecake|Whole Cheesecake",
+      "mini-dozen|Mini Dozen",
       "sampler|Sampler"
     ];
     var flavorArray = [
@@ -216,7 +218,8 @@ function populate(s1, s2, s3) {
       "key lime|Key Lime",
       "cookies n dream|Cookies n Dream",
       "chocolate raspberry|Chocolate Raspberry",
-      "mocha mud|Mocha Mud"
+      "mocha mud|Mocha Mud",
+      "sampler|Sampler"
     ];
   }
   for (var option in optionArray) {
@@ -253,6 +256,11 @@ function populate(s1, s2, s3) {
     icingLabel.style.visibility = "hidden";
   } else {
     icing.style.visibility = "visible";
+    rose1.style.visibility = "visible";
+    rose1Label.style.visibility = "visible";
+    rose2.style.visibility = "visible";
+    rose2Label.style.visibility = "visible";
+    icingLabel.style.visibility = "visible";
   }
 }
 
