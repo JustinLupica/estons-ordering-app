@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
   <head>
     <script src="https://kit.fontawesome.com/698878cf66.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/stylesheets/main.css" type="text/css"/>
-    <title>Customer Lookup</title>
+    <title>Order Preview</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -23,7 +18,7 @@
       <nav>
         <ul>
           <li><a href="/NewOrder">New Order</a></li>
-          <li><a href="/customerlookup" class="active">Customers</a></li>
+          <li><a href="/customerlookup">Customers</a></li>
           <li><a href="/orders">Orders</a></li>
         </ul>
       </nav>
@@ -34,55 +29,40 @@
       <!-- Main -->
       <section id="main" class="wrapper">
         <div class="inner">
-          <h1 class="major">Customer Lookup</h1>
+          <h1 class="major">Order Preview</h1>
           <p>
-            This page will be used to lookup a customer's info, update it as
-            nessesary, and add new customers to the customer database.
+            This page will be were you can veiw all the information about the order that was fetched from the Database.
+            You can access this page by selecting the order you would like to preview from the Order Log page.
           </p>
         </div>
       </section>
-      <form action="/data" method="POST">
-        <div class="field half">
-          <label class="addLabel" for="customersName">New - Customer's Name</label>
-          <input type="text" name="customersName" id="customersName" />
-          <label class="addLabel" for="phoneNumber">Phone Number</label>
-          <input type="text" name="phoneNumber" id="phoneNumber">
-        </div>
-        <button>Submit</button>
-      </form>
       <hr>
 
-      <section class="formInputs">
-
-      <div class="field half">
-        <label for="search-input">Search Customers Below</label>
-        <div class="wrapper">
-        <i class="fab fa-searchengin"></i>
-        <input type="text" name="search-input" id="search-input" onkeydown="filterCustomer()" />
-      </div>
-    </section>
-        <br>
-      <table class="customerTable">
-        <thead>
-          <th onclick="sortTable()">Name</th>
-          <th>Phone Number</th>
-        </thead>
-        <tbody id="table">
-            <%if (resultArray.length > 0){ %>
-                <% resultArray.forEach(function(row){ %>
-            <tr>
-                <td><%=row.name%></td>
-                <td><%=row.phoneNumber%></td>
-                <td><i class="fas fa-check-square"></i></td>
-            </tr> 
-            <%})}else{ %>
-                <tr>
-                    <td colspan="2">No Records Found</td>
-                </tr>
-            <% } %>
-        </tbody>
-      </table>
-    </div>
+      <%if (resultArray.length > 0){ %> <% resultArray.forEach(function(entry){
+        %>
+            <label>Order ID: <%=entry.id%></label>
+          <label>Date Order Taken: <%=entry.dateOrderTaken%></label>
+          <label>Employee: <%=entry.employee%></label>
+          <label>Fulfillment: <%=entry.pickupOrDelivery%></label>
+          <label>Pickup Date: <%=entry.pickupDate%></label>
+          <label>Delivery Date: <%=entry.DeliveryDate%></label>
+          <label>Customer Name: <%=entry.customerName%></label>
+          <label>Phone Number: <%=entry.phoneNumber%></label>
+          <label>Product Type: <%=entry.productType%></label>
+          <label>Size: <%=entry.size%></label>
+          <label>Flavor: <%=entry.flavor%></label>
+          <label>Icing: <%=entry.icing%></label>
+          <label>Rose Color 1: <%=entry.roseColor1%></label>
+          <label>Rose Color 2: <%=entry.roseColor2%></label>
+          <label id="sprinkles">Sprinkles: <%=entry.sprinkles%></label>
+          <label>Message Card: <%=entry.messageCard%></label>
+          <label>Special Instructions: <%=entry.specialInstructions%></label>
+          <label>Receipt Number: <%=entry.receiptNumber%></label>
+        <%})}else{ %>
+        <ul>
+          <li>No Entries Found</td>
+        </ul>
+        <% } %>
 
     <!-- Footer -->
     <footer id="footer" class="wrapper alt">

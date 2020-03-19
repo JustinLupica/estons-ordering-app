@@ -31,7 +31,7 @@ con.connect(function(err) {
 
 app.get("/orders", function(req, res) {
   con.query(
-    "SELECT customerName, pickupDate, size, flavor, specialInstructions FROM orderLog",
+    "SELECT id, customerName, pickupDate, size, flavor, specialInstructions FROM orderLog",
     function(err, result, fields) {
       if (err) throw err;
       console.log(result);
@@ -64,6 +64,21 @@ app.get("/NewOrder", (req, res) => {
   return;
 });
 
+app.get("/order_preview/:id", (req, res) => {
+  con.query("SELECT * FROM orderLog WHERE id = ?", [req.params.id], function(
+    err,
+    result,
+    fields
+  ) {
+    if (err) throw err;
+    console.log("Fetched order with ID: " + req.params.id);
+    const resultArray = result;
+    console.log(resultArray);
+    res.render("order_preview", { resultArray: result });
+    return;
+  });
+});
+
 app.post("/data", function(req, res) {
   const customerName = req.body.customersName;
   const phoneNumber = req.body.phoneNumber;
@@ -83,7 +98,7 @@ app.post("/data", function(req, res) {
   );
 });
 
-app.post("/order_create", function(res, res) {
+app.post("/order_create", function(req, res) {
   const employee = req.body.employee;
   const fulfillment = req.body.pickupOrDelivery;
   const pickupDate = req.body.pickupDate;
@@ -95,13 +110,13 @@ app.post("/order_create", function(res, res) {
   const flavor = req.body.productFlavor;
   const icing = req.body.icing;
   const firstRose = req.body.roseColor1;
-  const secondRose = req.body.roseColor2;
+  const secondColor = req.body.colorChoice2;
   const messageCard = req.body.messageCard;
   const specialInstructions = req.body.specialInstructions;
   const receiptNumber = req.body.receiptNumber;
 
   const queryString =
-    "INSERT INTO orderLog (dateOrderTaken, employee, pickupOrDelivery, pickupDate, deliveryDate, customerName, phoneNumber, productType, size, flavor, icing, roseColor1, roseColor2, sprinkles, messageCard, specialInstructions, receiptNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO orderLog (employee, pickupOrDelivery, pickupDate, deliveryDate, customerName, phoneNumber, productType, size, flavor, icing, roseColor1, roseColor2, messageCard, specialInstructions, receiptNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   con.query(
     queryString,
@@ -117,7 +132,7 @@ app.post("/order_create", function(res, res) {
       flavor,
       icing,
       firstRose,
-      secondRose,
+      secondColor,
       messageCard,
       specialInstructions,
       receiptNumber
@@ -128,6 +143,7 @@ app.post("/order_create", function(res, res) {
         return;
       }
       console.log("Successfully Logged new Order!");
+      res.redirect("/orders");
       return;
     }
   );

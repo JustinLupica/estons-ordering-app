@@ -40,11 +40,11 @@
               </div>
               <div class="field half">
                 <label for="email">Email</label>
-                <input type="text" name="email" id="email" />
+                <input type="email" name="email" id="email" />
               </div>
               <div class="field half">
                   <label for="phoneNumber">Phone Number</label>
-                  <input type="text" name="phoneNumber" id="phoneNumber">
+                  <input type="tel" name="phoneNumber" id="phoneNumber">
       </div>
       </div>
                 <div class="dropdown-row2">
@@ -88,7 +88,7 @@
                   </div>
                   <div class="productSize">
                     <label for="productSize">Product Size</label>
-                      <select name="productSize" id="productSize">
+                      <select name="productSize" id="productSize" onchange="price()">
                           <option value="" disabled selected>Size</option>
                       </select>
                   </div>
@@ -103,28 +103,64 @@
               <div class="icing">
                   <label id="icingLabel" for="icing">Icing Color</label>
                 <select name="icing" id="icing">
+                  <option value=""disabled selected>Select Icing</option>
                     <option value="white">White</option>
                     <option value="chocolate">Chocolate</option>
                 </select>
                 </div>
+                <div class="designChoice">
+                    <label id="designLabel" for="designChoice">Design:</label>
+                    <select name="designChoice" id="designChoice" onchange="designSelect()">
+                      <option value="" disabled selected>Choose a design:</option>
+                      <option value="Roses">Roses</option>
+                      <option value="Dots">Dots</option>
+                    </select>
+                </div>
                 <div class="roseColor1">
-                    <label id="roseLabel1" for="roseColor1">Rose Color</label>
+                    <label id="roseLabel1" for="roseColor1"></label>
                     <select name="roseColor1" id="roseColor1">
-                        <option value="white">White</option>
-                        <option value="chocolate">Chocolate</option>
-                        <option value="red">Red</option>
-                        <option value="blue">Blue</option>
-                        <option value="purple">Purple</option>
+                      <option value="" disabled selected>1st Rose</option>
+                      <option value="Plain">Plain</option>
+                        <option value="White">White</option>
+                        <option value="Chocolate">Chocolate</option>
+                        <option value="Light Chocolate">Light Chocolate</option>
+                        <option value="Pastel Pink">Pastel Pink</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Pastel Bright Green">Pastel Bright Green</option>
+                        <option value="Holiday Green">Holiday Green</option>
+                        <option value="Red">Red</option>
+                        <option value="Pastel Blue">Pastel Blue</option>
+                        <option value="Royal Blue">Royal Blue</option>
+                        <option value="Navy Blue">Navy Blue</option>
+                        <option value="Grey">Grey</option>
+                        <option value="Black">Black</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Pastel Purple">Pastel Purple</option>
+                        <option value="Purple">Purple</option>
+
                     </select>
                 </div>
                 <div class="roseColor2">
-                    <label id="roseLabel2" for="roseColor2">Rose Color</label>
-                    <select name="roseColor2" id="roseColor2">
-                        <option value="white">White</option>
-                        <option value="chocolate">Chocolate</option>
-                        <option value="red">Red</option>
-                        <option value="blue">Blue</option>
-                        <option value="purple">Purple</option>
+                    <label id="colorLabel2" for="colorChoice2"></label>
+                    <select name="colorChoice2" id="colorChoice2">
+                      <option value="" disabled selected>2nd Rose</option>
+                      <option value="Plain">Plain</option>
+                      <option value="White">White</option>
+                      <option value="Chocolate">Chocolate</option>
+                      <option value="Light Chocolate">Light Chocolate</option>
+                      <option value="Pastel Pink">Pastel Pink</option>
+                      <option value="Yellow">Yellow</option>
+                      <option value="Pastel Bright Green">Pastel Bright Green</option>
+                      <option value="Holiday Green">Holiday Green</option>
+                      <option value="Red">Red</option>
+                      <option value="Pastel Blue">Pastel Blue</option>
+                      <option value="Royal Blue">Royal Blue</option>
+                      <option value="Navy Blue">Navy Blue</option>
+                      <option value="Grey">Grey</option>
+                      <option value="Black">Black</option>
+                      <option value="Orange">Orange</option>
+                      <option value="Pastel Purple">Pastel Purple</option>
+                      <option value="Purple">Purple</option>
                     </select>
                 </div>
             </div>
@@ -137,23 +173,51 @@
                 <label for="specialInstructions">Special Instructions</label>
                 <textarea name="specialInstructions" id="specialInstructions" rows="3"></textarea>
               </div>
-              <div class="field">
+              <div class="field-receipt">
                     <label for="receiptNumber">Receipt Number</label>
                     <input type="text" name="receiptNumber" id="receiptNumber">
               </div>
-            </div>
-            <ul class="actions">
-              <li><a href="/order_create" class="button submit">Send</a></li>
-            </ul>
-            <ul class="actions">
-                <li><a href="/customerlookup" class="button submit">Customer Lookup</a></li>
-              </ul>
+                  <h2><label>Total Due:</label></h2>
+                  <label id="totalPrice"></label>
+              <button class="Submit">Submit Order</button>
+            </div>       
           </form>
         </section>
       </div>
     </div>
   </section>
 </div>
+<script>
+  function price() {
+    const price = document.getElementById('totalPrice');
+    const size = document.getElementById('productSize').value
+    if(size == "PBC") {
+      price.innerText = "$6.00"
+    } else if (size == "6 inch") {
+      price.innerText = "$22.00"
+    } else if (size == "8 inch") {
+      price.innerText = "$32.00"
+    } else if (size == "10 inch") {
+      price.innerText = "$42.00"
+    }else if (size == "1/2 Sh") {
+      price.innerText = "$62.00"
+    }else if (size == "single") {
+      price.innerText = "$2.50"
+    }else if (size == "1/2 dozen") {
+      price.innerText = "$15.00"
+    }else if (size == "dozen") {
+      price.innerText = "$29.00"
+    }else if (size == "mini-dozen") {
+      price.innerText = "$13.50"
+    }else if (size == "single slice") {
+      price.innerText = "$3.50"
+    }else if (size == "whole cheesecake") {
+      price.innerText = "$30.00"
+    }else if (size == "sampler") {
+      price.innerText = "$32.00"
+    }
+  }
+</script>
 <script>
 function populate(s1, s2, s3) {
   var s1 = document.getElementById(s1);
@@ -164,6 +228,7 @@ function populate(s1, s2, s3) {
   if (s1.value == "cakes") {
     var optionArray = [
       "|Select a Size",
+      "PBC|PBC",
       "6 inch|6 inch",
       "8 inch|8 inch",
       "10 inch|10 inch",
@@ -178,48 +243,58 @@ function populate(s1, s2, s3) {
       "CRSP|Chocolate Raspberry",
       "KL|Key Lime",
       "AZ|Almond Zebra",
-      "RR|Raspberry Royale"
+      "RR|Raspberry Royale",
+      "TIR|Tiramisu",
+      "B&W|Black & White",
+      "CDS|Chocolate Dipped Strawberry"
     ];
+    
   } else if (s1.value == "cupcakes") {
     var optionArray = [
       "|Select a Size",
-      "single|Single",
+      "Single|Single",
       "1/2 dozen|1/2 Dozen",
-      "dozen|Dozen",
-      "mini-dozen|Mini Dozen"
+      "Dozen|Dozen",
+      "Mini-Dozen|Mini Dozen"
     ];
     var flavorArray = [
       "|Select a Flavor",
+      "NY|New York",
       "TC|Triple Chocolate",
       "STR|Strawberry",
       "LK|Lemon Kiss",
       "RV|Red Velvet",
+      "BUCK|Buckeye",
+      "KL|Key Lime",
       "RF|Raspberry Forest",
       "WC|White Chocolate",
       "VBC|Vanilla Buttercream",
-      "CBC|Chocolate Buttercream"
+      "CBC|Chocolate Buttercream",
+      "Variety|Variety Pack - See Sp. Inst."
     ];
   } else if (s1.value == "cheesecakes") {
     var optionArray = [
       "|Select a Size",
-      "single slice|Single Slice",
-      "whole cheesecake|Whole Cheesecake",
-      "mini-dozen|Mini Dozen",
-      "sampler|Sampler"
+      "Single Slice|Single Slice",
+      "Whole Cheesecake|Whole Cheesecake",
+      "Mini-Dozen|Mini Dozen",
+      "Sampler|Sampler"
     ];
     var flavorArray = [
       "|Select a Flavor",
-      "original|Original",
-      "chocolate bliss|Chocolate Bliss",
-      "strawberry|Strawberry Chiffon",
-      "mixed berry|Mixed Berry",
-      "fresh apple|Fresh Apple",
-      "buckeye|Buckeye",
-      "key lime|Key Lime",
-      "cookies n dream|Cookies n Dream",
-      "chocolate raspberry|Chocolate Raspberry",
-      "mocha mud|Mocha Mud",
-      "sampler|Sampler"
+      "Original|Original",
+      "NY|New York",
+      "Chocolate Bliss|Chocolate Bliss",
+      "Strawberry|Strawberry Chiffon",
+      "Mixed Berry|Mixed Berry",
+      "Fresh Apple|Fresh Apple",
+      "Buckeye|Buckeye",
+      "Key Lime|Key Lime",
+      "Cookies N Dream|Cookies n Dream",
+      "Chocolate Raspberry|Chocolate Raspberry",
+      "Mocha Mud|Mocha Mud",
+      "Sampler|Sampler",
+      "Variety|Variety Pack - See Sp. Inst."
     ];
   }
   for (var option in optionArray) {
@@ -245,8 +320,10 @@ function populate(s1, s2, s3) {
   var icingLabel = document.getElementById("icingLabel");
   var rose1 = document.getElementById("roseColor1");
   var rose1Label = document.getElementById("roseLabel1")
-  var rose2 = document.getElementById("roseColor2")
-  var rose2Label = document.getElementById("roseLabel2")
+  var rose2 = document.getElementById("colorChoice2")
+  var rose2Label = document.getElementById("colorLabel2")
+  var designLabel = document.getElementById("designLabel")
+  var designChoice = document.getElementById("designChoice")
   if (typeselector == "cupcakes" || typeselector == "cheesecakes") {
     icing.style.visibility = "hidden";
     rose1.style.visibility = "hidden";
@@ -254,6 +331,8 @@ function populate(s1, s2, s3) {
     rose2.style.visibility = "hidden";
     rose2Label.style.visibility = "hidden";
     icingLabel.style.visibility = "hidden";
+    designLabel.style.visibility = "hidden";
+    designChoice.style.visibility = "hidden";
   } else {
     icing.style.visibility = "visible";
     rose1.style.visibility = "visible";
@@ -261,6 +340,8 @@ function populate(s1, s2, s3) {
     rose2.style.visibility = "visible";
     rose2Label.style.visibility = "visible";
     icingLabel.style.visibility = "visible";
+    designLabel.style.visibility = "visible";
+    designChoice.style.visibility = "visible";
   }
 }
 
@@ -282,6 +363,20 @@ function fulfillment(drpdwn1, pickupDate, deliveryDate) {
   }
 }
 
+</script>
+<script>
+  function designSelect(){
+    const designLabel1 = document.getElementById("roseLabel1");
+    const designChoice = document.getElementById("designChoice").value
+    const designLabel2 = document.getElementById("roseLabel2");
+    if(designChoice == "Roses") {
+      designLabel1.innerText = "Rose Color"
+      designLabel2.innerText = "Rose Color"
+    } else {
+      designLabel1.innerText = "Dots Color"
+      designLabel2.innerText = "Dots Color"
+    }
+  }
 </script>
 <script>
     require('../renderer.js');

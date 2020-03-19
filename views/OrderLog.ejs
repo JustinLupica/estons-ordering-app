@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/stylesheets/main.css" type="text/css"/>
+    <link rel="stylesheet" href="/stylesheets/main.css" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/698878cf66.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Order Log</title>
     <meta charset="utf-8" />
     <meta
@@ -30,46 +34,71 @@
         <div class="inner">
           <h1 class="major">Order Log</h1>
           <p>
-                This page will be used to view orders logged within the SQL Database. You'll be able to filter, sort, and get a summary of upcoming orders.
-                You should also be able to search for an order by ID, or customer name, to bring up the summary view of the result.
+            This page will be used to view orders logged within the SQL
+            Database. You'll be able to filter, sort, and get a summary of
+            upcoming orders. You should also be able to search for an order by
+            ID, or customer name, to bring up the summary view of the result.
           </p>
         </div>
-    </section>
+      </section>
 
       <section class="formInputs">
-        <form method="POST" action="/data">
-          <div class="fields">
-            
+        <div class="input-filters">
+          <div class="search-orders">
+            <label for="search-orders">Search Orders Below</label>
+            <div class="wrapper">
+              <i class="fab fa-searchengin"></i>
+              <input
+                type="text"
+                name="search-order"
+                id="search-orders"
+                onkeydown="filterOrders()"
+              />
+            </div>
           </div>
-        </form>
-      </section>
-      <div class="field half">
-        <label for="search-orders">Search Orders Below</label>
-        <input type="text" name="search-order" id="search-orders" onkeydown="filterOrders()" />
+          <div class="date-filter">
+            <label for="date-filter">Filter Orders By Date</label>
+            <input
+              type="date"
+              name="date-filter"
+              id="date-filter"
+              onchange="filterByDate()"
+            />
+          </div>
         </div>
+        <hr />
+      </section>
       <table id="orderTable" class="orderLog">
-        <tr></tr>
-          <th onclick="sort()">Name</th>
-          <th onclick="sort()">Pickup Date</th>
-          <th onclick="sort()">Size</th>
-          <th onclick="sort()">Flavor</th>
-          <th onclick="sort()">Special Instructions</th>
-        </tr>
+        <thead>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Pickup Date</th>
+          <th>Size</th>
+          <th>Flavor</th>
+          <th>Special Instructions</th>
+        </thead>
         <tbody id="orderTable">
-            <%if (orderArray.length > 0){ %>
-                <% orderArray.forEach(function(row){ %>
-            <tr>
-                <td><%=row.customerName%></td>
-                <td><%=row.pickupDate%></td>
-                <td><%=row.size%></td>
-                <td><%=row.flavor%></td>
-                <td><%=row.specialInstructions%></td>
-            </tr> 
-            <%})}else{ %>
-                <tr>
-                    <td colspan="2">No Records Found</td>
-                </tr>
-            <% } %>
+          <%if (orderArray.length > 0){ %> <% orderArray.forEach(function(row){
+          %>
+          <tr>
+            <td><%=row.id%></td>
+            <td><%=row.customerName%></td>
+            <td><%=row.pickupDate%></td>
+            <td><%=row.size%></td>
+            <td><%=row.flavor%></td>
+            <td><%=row.specialInstructions%></td>
+            <td><i class="far fa-edit"></i></td>
+            <td>
+              <a href="/order_preview/<%= row.id %>">
+                <i class="far fa-eye"></i>
+              </a>
+            </td>
+          </tr>
+          <%})}else{ %>
+          <tr>
+            <td colspan="2">No Records Found</td>
+          </tr>
+          <% } %>
         </tbody>
       </table>
     </div>
@@ -95,34 +124,52 @@
     <script src="index.js"></script>
     <script src="app.js"></script>
     <script src="server.js"></script>
+
     <script>
-        function filterOrders() {
-          var input, filter, table, tr, td, i, txtValue;
-          input = document.getElementById("search-orders");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("orderTable");
-          tr = table.getElementsByTagName("tr");
-  
-          //Loop through table rows and hide unmatched results
-          for(i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-              txtValue = td.textContent || td.innerText;
-              if(txtValue.toUpperCase().indexOf(filter) > -1){
-                tr[i].style.display = "";
-              } else {
-                tr[i].style.display = "none";
-              }
+      function filterOrders() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search-orders");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("orderTable");
+        tr = table.getElementsByTagName("tr");
+
+        //Loop through table rows and hide unmatched results
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[1];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
             }
           }
         }
+      }
 
-        function sort() {
-          console.log("Column was clicked!")
+      function sort() {
+        console.log("Column was clicked!");
+      }
+    </script>
+    <script>
+      function filterByDate() {
+        var dateToCheck = document.getElementById("date-filter").value;
+        var orderTable = document.getElementById("orderTable");
+        var row = orderTable.getElementsByTagName("tr");
+
+        for (i = 0; i < row.length; i++) {
+          var td = row[i].getElementsByTagName("td")[2];
+          if (td) {
+            var dateValue = td.innerHTML;
+            if (dateValue == dateToCheck) {
+              row[i].style.display = "";
+            } else {
+              row[i].style.display = "none";
+            }
+          }
         }
-
-      </script>
-      <script src="../scripts.js"></script>
-
+      }
+    </script>
+    <script src="../scripts.js"></script>
   </body>
 </html>

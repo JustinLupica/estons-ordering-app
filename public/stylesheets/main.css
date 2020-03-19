@@ -3970,7 +3970,8 @@ input, select, textarea {
 			scale: 1.5;
 		}
 
-		#search-input {
+		#search-input,
+		#search-orders {
 			padding-left: 2.5em;
 		}
 
@@ -3983,12 +3984,43 @@ input, select, textarea {
 			margin: auto;
 		}
 
-		#customersName,
-		#phoneNumber {
-			width: 30%;
-		}
-
 		.addLabel {
 			width: 30%;
 			align-content: center;
+		}
+
+		#receiptNumber {
+			width: 45%;
+		}
+
+		.Submit {
+			margin-top: 15px;
+		}
+
+		.input-filters {
+			height: 20vh;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			margin: auto;
+			margin-bottom: 15px;
+			position: relative;
+			float: left;
+			width: 100%;
+			margin-bottom: 5%;
+		}
+
+		.search-orders,
+		.date-filter {
+			width: 40%;
+		}
+
+		tbody tr:hover {
+			background-color: #5052b5;
+			color: azure;
+		}
+
+		table tbody tr:nth-child(2n + 1):hover {
+			background-color: #5052b5;
+			color: azure;
 		}
