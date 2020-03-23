@@ -1,0 +1,4 @@
+appId: com.estons-app.autoUpdate
+publish:
+  provider: github
+  token: 0aa36e7ee151a62f1b90e7947fe14c8d0d4de8ca
